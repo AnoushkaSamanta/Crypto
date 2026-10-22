@@ -27,17 +27,17 @@ export const NoiseSweepChart: React.FC<NoiseSweepChartProps> = ({ sweepData }) =
   }));
 
   return (
-    <div className="clay-card p-5 w-full">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+    <div className="space-y-3 w-full">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-1">
         <div>
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-black">
             Privacy-Utility Pareto Tradeoff (Noise Multiplier Sweep)
           </h4>
           <p className="text-xs text-slate-500 mt-0.5">
             Increasing noise (σ) drops attack AUC (increasing privacy) with a controlled accuracy trade-off.
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs font-mono font-semibold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
+        <div className="flex items-center gap-2 text-xs font-mono font-bold text-black bg-[#D4FF00] px-3 py-1 rounded-full">
           Evaluated across σ ∈ [0.5, 1.0, 2.0]
         </div>
       </div>
@@ -49,10 +49,10 @@ export const NoiseSweepChart: React.FC<NoiseSweepChartProps> = ({ sweepData }) =
             <XAxis dataKey="sigma" stroke="#64748B" tick={{ fontSize: 11 }} />
             <YAxis
               yAxisId="left"
-              stroke="#2563EB"
+              stroke="#000000"
               tick={{ fontSize: 11 }}
               domain={[50, 90]}
-              label={{ value: "Accuracy (%)", angle: -90, position: "insideLeft", offset: 15, fill: "#2563EB", fontSize: 11 }}
+              label={{ value: "Accuracy (%)", angle: -90, position: "insideLeft", offset: 15, fill: "#000000", fontSize: 11 }}
             />
             <YAxis
               yAxisId="right"
@@ -78,9 +78,9 @@ export const NoiseSweepChart: React.FC<NoiseSweepChartProps> = ({ sweepData }) =
               type="monotone"
               dataKey="testAcc"
               name="Global Test Acc (%)"
-              stroke="#2563EB"
-              strokeWidth={2.2}
-              dot={{ r: 3.5, fill: "#2563EB" }}
+              stroke="#000000"
+              strokeWidth={2.4}
+              dot={{ r: 3.5, fill: "#000000" }}
             />
             <Line
               yAxisId="right"

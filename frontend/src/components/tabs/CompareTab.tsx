@@ -4,7 +4,6 @@ import React from "react";
 import { AggMetrics, RocCurve, NoiseSweepItem } from "@/types";
 import { RocCurveChart } from "../charts/RocCurveChart";
 import { NoiseSweepChart } from "../charts/NoiseSweepChart";
-import { Scales, WarningCircle } from "@phosphor-icons/react";
 
 interface CompareTabProps {
   baselineAgg: AggMetrics;
@@ -71,25 +70,24 @@ export const CompareTab: React.FC<CompareTabProps> = ({
   ];
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
+    <div className="space-y-8 animate-in fade-in duration-300">
       {/* Narrative Callout */}
-      <div className="tab-narrative !border-amber-500 !bg-amber-50/60 !text-slate-700">
+      <div className="tab-narrative">
         &ldquo;By modifying client gradient updates with clipping and Gaussian noise,
         DP-SGD substantially reduces membership leakage at an acceptable utility cost.&rdquo;
       </div>
 
-      {/* Side-by-Side Performance Comparison Table */}
-      <div className="clay-card p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <Scales size={20} weight="duotone" className="text-amber-600" />
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+      {/* Side-by-Side Performance Comparison Table - Frameless Clean UI */}
+      <div className="space-y-4">
+        <div>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-black">
             Multi-Seed Empirical Benchmark Matrix (3 Seeds, 30 Communication Rounds)
           </h4>
         </div>
 
-        <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <div className="overflow-x-auto rounded-3xl bg-[#F7F8FA] p-2">
           <table className="w-full text-xs text-left">
-            <thead className="bg-slate-50 text-slate-600 font-mono uppercase text-[10px] border-b border-slate-200">
+            <thead className="bg-slate-50 text-slate-600 font-mono uppercase text-[10px]">
               <tr>
                 <th className="py-3 px-4 font-sans font-bold">Evaluation Metric</th>
                 <th className="py-3 px-4 text-rose-700 font-bold">Baseline (No DP)</th>
@@ -102,16 +100,16 @@ export const CompareTab: React.FC<CompareTabProps> = ({
                 <tr
                   key={idx}
                   className={`hover:bg-slate-50/70 transition-colors ${
-                    row.highlight ? "bg-slate-50/30" : ""
+                    row.highlight ? "bg-slate-50/40" : ""
                   }`}
                 >
-                  <td className="py-3 px-4 font-sans font-semibold text-slate-800">
+                  <td className="py-3.5 px-4 font-sans font-semibold text-slate-800">
                     {row.name}
                   </td>
-                  <td className="py-3 px-4 text-rose-700 font-bold">{row.baseline}</td>
-                  <td className="py-3 px-4 text-emerald-700 font-bold">{row.dp}</td>
-                  <td className="py-3 px-4 text-slate-600 font-sans text-[11px]">
-                    <span className="px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 font-medium">
+                  <td className="py-3.5 px-4 text-rose-700 font-bold">{row.baseline}</td>
+                  <td className="py-3.5 px-4 text-emerald-700 font-bold">{row.dp}</td>
+                  <td className="py-3.5 px-4 text-slate-600 font-sans text-[11px]">
+                    <span className="px-3 py-1 rounded-full bg-slate-100 font-medium">
                       {row.impact}
                     </span>
                   </td>
@@ -136,11 +134,10 @@ export const CompareTab: React.FC<CompareTabProps> = ({
         <NoiseSweepChart sweepData={noiseSweep} />
       )}
 
-      {/* Honest Limitations & Nuances Box */}
-      <div className="p-6 rounded-2xl bg-amber-50/70 border border-amber-200/90 shadow-xs space-y-3">
-        <div className="flex items-center gap-2 text-amber-900 font-bold text-xs uppercase tracking-wider">
-          <WarningCircle size={20} weight="duotone" className="text-amber-600" />
-          <span>Honest Limitations & Privacy Engineering Nuances</span>
+      {/* Honest Limitations & Nuances Box - Borderless */}
+      <div className="p-6 rounded-2xl bg-amber-50/70 space-y-3">
+        <div className="text-amber-950 font-bold text-xs uppercase tracking-wider">
+          Honest Limitations & Privacy Nuances
         </div>
         <div className="space-y-2 text-xs text-slate-700 leading-relaxed">
           <p>

@@ -51,10 +51,10 @@ export const LossDistributionChart: React.FC<LossDistributionChartProps> = ({
   }, [memberLosses, nonmemberLosses]);
 
   return (
-    <div className="clay-card p-5 w-full">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+    <div className="space-y-3 w-full">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-1">
         <div>
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-black">
             Loss Distribution Separation (Members vs Non-members)
           </h4>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -62,8 +62,8 @@ export const LossDistributionChart: React.FC<LossDistributionChartProps> = ({
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200 text-amber-800 font-mono text-xs font-semibold">
-            Decision Threshold: Loss = {lossThreshold} (Score τ = {threshold.toFixed(3)})
+          <span className="px-3.5 py-1 rounded-full bg-slate-100 text-black font-mono text-xs font-bold">
+            Threshold: Loss = {lossThreshold} (Score τ = {threshold.toFixed(3)})
           </span>
         </div>
       </div>

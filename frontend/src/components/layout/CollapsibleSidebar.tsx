@@ -1,22 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { TabId } from "./StoryTabs";
 import { ExperimentConfig } from "@/types";
-import {
-  ShieldCheck,
-  Cpu,
-  Target,
-  Scales,
-  SlidersHorizontal,
-  SidebarSimple,
-  CaretLeft,
-  CaretRight,
-  Database,
-  LockKey,
-  X,
-  Info,
-} from "@phosphor-icons/react";
+import { CaretLeft, CaretRight, X } from "@phosphor-icons/react";
 
 interface CollapsibleSidebarProps {
   activeTab: TabId;
@@ -39,40 +26,30 @@ export const CollapsibleSidebar: React.FC<CollapsibleSidebarProps> = ({
   isCollapsed,
   onToggleCollapse,
 }) => {
-  const toggleCollapse = onToggleCollapse;
-
   const navItems = [
     {
       id: "train" as TabId,
-      label: "1. Train (FedAvg)",
-      shortLabel: "Train",
-      icon: Cpu,
-      color: "text-blue-600",
-      activeBg: "bg-blue-50 text-blue-700 font-semibold border-blue-200",
+      step: "01",
+      label: "Train (FedAvg)",
+      shortLabel: "01",
     },
     {
       id: "attack" as TabId,
-      label: "2. Attack (MIA)",
-      shortLabel: "Attack",
-      icon: Target,
-      color: "text-rose-600",
-      activeBg: "bg-rose-50 text-rose-700 font-semibold border-rose-200",
+      step: "02",
+      label: "Attack (MIA)",
+      shortLabel: "02",
     },
     {
       id: "defend" as TabId,
-      label: "3. Defend (DP-SGD)",
-      shortLabel: "Defend",
-      icon: ShieldCheck,
-      color: "text-emerald-600",
-      activeBg: "bg-emerald-50 text-emerald-700 font-semibold border-emerald-200",
+      step: "03",
+      label: "Defend (DP-SGD)",
+      shortLabel: "03",
     },
     {
       id: "compare" as TabId,
-      label: "4. Compare (Metrics)",
-      shortLabel: "Compare",
-      icon: Scales,
-      color: "text-amber-600",
-      activeBg: "bg-amber-50 text-amber-700 font-semibold border-amber-200",
+      step: "04",
+      label: "Compare (Metrics)",
+      shortLabel: "04",
     },
   ];
 
@@ -82,34 +59,38 @@ export const CollapsibleSidebar: React.FC<CollapsibleSidebarProps> = ({
       {isMobileOpen && (
         <div
           onClick={onCloseMobile}
-          className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-xs lg:hidden transition-opacity"
+          className="fixed inset-0 z-40 bg-black/20 backdrop-blur-xs lg:hidden transition-opacity"
         />
       )}
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-40 flex flex-col justify-between bg-white border-r border-slate-200/90 shadow-sm transition-all duration-300 ease-in-out ${
+        className={`fixed top-0 bottom-0 left-0 z-40 flex flex-col justify-between bg-white transition-all duration-300 ease-in-out ${
           isMobileOpen
-            ? "translate-x-0 w-68"
+            ? "translate-x-0 w-64 shadow-2xl"
             : "-translate-x-full lg:translate-x-0"
-        } ${isCollapsed ? "lg:w-18" : "lg:w-64"}`}
+        } ${isCollapsed ? "lg:w-20" : "lg:w-64"}`}
       >
         {/* Top: Logo & Toggle */}
         <div>
-          <div className="h-16 flex items-center justify-between px-4 border-b border-slate-100">
-            <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
-                <ShieldCheck size={22} weight="duotone" />
-              </div>
-
-              {!isCollapsed && (
-                <div className="truncate">
-                  <span className="text-sm font-bold tracking-tight text-slate-800">
-                    FL-MIA Demo
-                  </span>
-                  <div className="text-[10px] text-slate-400 font-medium leading-none">
-                    DP Privacy Benchmark
+          <div className="h-16 flex items-center justify-between px-5">
+            <div className="flex items-center gap-2 overflow-hidden">
+              {!isCollapsed ? (
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-base font-black tracking-tight text-black">
+                      FL•MIA
+                    </span>
+                    <span className="w-2 h-2 rounded-full bg-[#D4FF00]" />
                   </div>
+                  <div className="text-[10px] text-slate-600 font-semibold uppercase tracking-wider">
+                    Privacy Benchmark
+                  </div>
+                </div>
+              ) : (
+                <div className="w-full flex items-center justify-center">
+                  <span className="text-sm font-black text-black">FL</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF00] ml-0.5" />
                 </div>
               )}
             </div>
@@ -117,34 +98,33 @@ export const CollapsibleSidebar: React.FC<CollapsibleSidebarProps> = ({
             {/* Mobile close button */}
             <button
               onClick={onCloseMobile}
-              className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+              className="lg:hidden p-1.5 rounded-full text-slate-400 hover:text-black hover:bg-slate-100"
             >
               <X size={18} />
             </button>
 
             {/* Desktop collapse toggle */}
             <button
-              onClick={toggleCollapse}
-              className="hidden lg:flex p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+              onClick={onToggleCollapse}
+              className="hidden lg:flex p-1.5 rounded-full text-slate-400 hover:text-black hover:bg-slate-100 transition-colors"
               title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
             >
-              <SidebarSimple size={18} weight="bold" />
+              {isCollapsed ? <CaretRight size={16} weight="bold" /> : <CaretLeft size={16} weight="bold" />}
             </button>
           </div>
 
-          {/* Navigation Section */}
+          {/* Navigation Items (Without Icons) */}
           <div className="px-3 py-4 space-y-6">
             <div>
               {!isCollapsed && (
-                <div className="px-3 mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                <div className="px-3 mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-600">
                   Workflow Stages
                 </div>
               )}
 
-              <nav className="space-y-1">
+              <nav className="space-y-1.5">
                 {navItems.map((item) => {
                   const isActive = activeTab === item.id;
-                  const Icon = item.icon;
 
                   return (
                     <button
@@ -153,26 +133,28 @@ export const CollapsibleSidebar: React.FC<CollapsibleSidebarProps> = ({
                         onChangeTab(item.id);
                         onCloseMobile();
                       }}
-                      className={`group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs transition-all ${
+                      className={`group relative w-full flex items-center gap-3 px-4 py-2.5 rounded-full text-xs transition-all cursor-pointer ${
                         isActive
-                          ? `${item.activeBg} border shadow-xs`
-                          : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent"
-                      } ${isCollapsed ? "justify-center" : ""}`}
+                          ? "bg-[#D4FF00] text-black font-bold shadow-xs"
+                          : "text-slate-600 hover:bg-slate-100 hover:text-black font-medium"
+                      } ${isCollapsed ? "justify-center px-0" : ""}`}
                       title={isCollapsed ? item.label : undefined}
                     >
-                      <Icon
-                        size={20}
-                        weight={isActive ? "bold" : "regular"}
-                        className={isActive ? item.color : "text-slate-400 group-hover:text-slate-600"}
-                      />
+                      <span
+                        className={`text-[11px] font-mono tracking-tight ${
+                          isActive ? "text-black font-black" : "text-slate-500 font-bold"
+                        }`}
+                      >
+                        {item.step}
+                      </span>
 
                       {!isCollapsed && (
-                        <span className="truncate font-medium">{item.label}</span>
+                        <span className="truncate">{item.label}</span>
                       )}
 
                       {/* Tooltip on collapsed desktop */}
                       {isCollapsed && (
-                        <div className="absolute left-full ml-3 px-2.5 py-1.5 rounded-lg bg-slate-900 text-white text-[11px] whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity shadow-lg z-50">
+                        <div className="absolute left-full ml-3 px-2.5 py-1.5 rounded-full bg-black text-white text-[11px] font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity shadow-md z-50">
                           {item.label}
                         </div>
                       )}
@@ -182,11 +164,11 @@ export const CollapsibleSidebar: React.FC<CollapsibleSidebarProps> = ({
               </nav>
             </div>
 
-            {/* System / Tools Section */}
+            {/* Settings & Parameters */}
             <div>
               {!isCollapsed && (
-                <div className="px-3 mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  Settings & Data
+                <div className="px-3 mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-600">
+                  Settings
                 </div>
               )}
 
@@ -196,16 +178,16 @@ export const CollapsibleSidebar: React.FC<CollapsibleSidebarProps> = ({
                     onOpenHyperparams();
                     onCloseMobile();
                   }}
-                  className={`group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all ${
-                    isCollapsed ? "justify-center" : ""
+                  className={`group relative w-full flex items-center gap-3 px-4 py-2.5 rounded-full text-xs text-slate-600 hover:bg-slate-100 hover:text-black font-medium transition-all cursor-pointer ${
+                    isCollapsed ? "justify-center px-0" : ""
                   }`}
                   title={isCollapsed ? "Hyperparameters" : undefined}
                 >
-                  <SlidersHorizontal size={19} className="text-slate-400 group-hover:text-slate-600" />
+                  <span className="text-[11px] font-mono text-slate-500 font-bold">CF</span>
                   {!isCollapsed && <span>Hyperparameters</span>}
 
                   {isCollapsed && (
-                    <div className="absolute left-full ml-3 px-2.5 py-1.5 rounded-lg bg-slate-900 text-white text-[11px] whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity shadow-lg z-50">
+                    <div className="absolute left-full ml-3 px-2.5 py-1.5 rounded-full bg-black text-white text-[11px] font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity shadow-md z-50">
                       Hyperparameters
                     </div>
                   )}
@@ -215,25 +197,27 @@ export const CollapsibleSidebar: React.FC<CollapsibleSidebarProps> = ({
           </div>
         </div>
 
-        {/* Bottom Card: Status Pill & Collapse Indicator */}
-        <div className="p-3 border-t border-slate-100 bg-slate-50/50">
+        {/* Bottom Card: Minimal Status */}
+        <div className="p-3">
           {!isCollapsed ? (
-            <div className="p-3 rounded-xl bg-white border border-slate-200/80 shadow-xs">
-              <div className="flex items-center justify-between text-xs font-semibold text-slate-800 mb-1">
-                <span>Privacy Guarantee</span>
-                <span className="font-mono text-emerald-600 font-bold">ε ≈ 6.72</span>
+            <div className="p-3.5 rounded-2xl bg-slate-50">
+              <div className="flex items-center justify-between text-xs font-semibold text-slate-800 mb-0.5">
+                <span>Privacy Bound</span>
+                <span className="px-2 py-0.5 rounded-full bg-[#D4FF00] text-black font-mono font-bold text-[10px]">
+                  ε ≈ 6.72
+                </span>
               </div>
-              <p className="text-[11px] text-slate-400">
-                5 Clients • Fashion-MNIST • RDP
+              <p className="text-[11px] text-slate-600 mt-1">
+                5 Clients • 600 records each
               </p>
             </div>
           ) : (
             <div
-              className="flex justify-center cursor-pointer p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
-              onClick={toggleCollapse}
+              className="flex justify-center cursor-pointer p-2 rounded-full text-slate-400 hover:text-black hover:bg-slate-100 transition-colors"
+              onClick={onToggleCollapse}
               title="Expand Sidebar"
             >
-              <CaretRight size={18} weight="bold" />
+              <CaretRight size={16} weight="bold" />
             </div>
           )}
         </div>

@@ -66,10 +66,10 @@ export const RocCurveChart: React.FC<RocCurveChartProps> = ({
   }, [baselineRoc, dpRoc]);
 
   return (
-    <div className="clay-card p-5 w-full">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+    <div className="space-y-3 w-full">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-1">
         <div>
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-black">
             {showOverlay
               ? "Overlaid ROC Curves: Baseline vs DP-SGD Protected"
               : "Receiver Operating Characteristic (ROC) Curve"}
@@ -81,11 +81,11 @@ export const RocCurveChart: React.FC<RocCurveChartProps> = ({
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 font-mono text-xs font-semibold">
+          <span className="px-3 py-1 rounded-full bg-slate-100 text-black font-mono text-xs font-semibold">
             Baseline AUC: {baselineAuc.toFixed(3)}
           </span>
           {showOverlay && dpAuc !== undefined && (
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-semibold">
+            <span className="px-3 py-1 rounded-full bg-[#D4FF00] text-black font-mono text-xs font-bold">
               DP-SGD AUC: {dpAuc.toFixed(3)}
             </span>
           )}

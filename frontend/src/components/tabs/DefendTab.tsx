@@ -14,7 +14,6 @@ import {
   Legend,
   CartesianGrid,
 } from "recharts";
-import { ShieldCheck } from "@phosphor-icons/react";
 
 interface DefendTabProps {
   dpHistory: DpHistory;
@@ -40,48 +39,43 @@ export const DefendTab: React.FC<DefendTabProps> = ({
   }));
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
+    <div className="space-y-8 animate-in fade-in duration-300">
       {/* Narrative Callout */}
-      <div className="tab-narrative !border-emerald-500 !bg-emerald-50/60 !text-slate-700">
+      <div className="tab-narrative">
         &ldquo;We changed the training process, not the chart.&rdquo;
       </div>
 
-      {/* DP Settings Banner */}
-      <div className="clay-card p-5 flex flex-wrap items-center justify-between gap-4 border-emerald-200/90 shadow-xs">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100">
-            <ShieldCheck size={26} weight="duotone" />
+      {/* DP Settings Banner - Frameless */}
+      <div className="flex flex-wrap items-center justify-between gap-4 py-2">
+        <div>
+          <div className="text-xs font-bold text-black flex items-center gap-2">
+            <span className="uppercase tracking-wider">Differentially Private FedAvg</span>
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-[#D4FF00] text-black font-bold">
+              Opacus 1.6
+            </span>
           </div>
-          <div>
-            <div className="text-xs font-bold text-slate-800 flex items-center gap-2">
-              <span className="uppercase tracking-wider">Differentially Private FedAvg</span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-100 text-emerald-800 font-semibold border border-emerald-200">
-                PyTorch Opacus
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Per-sample gradient clipping + calibrated Gaussian noise + Rényi DP accountant.
-            </p>
-          </div>
+          <p className="text-xs text-slate-500 mt-1">
+            Per-sample gradient clipping + calibrated Gaussian noise + Rényi DP accountant.
+          </p>
         </div>
 
-        {/* 4 Metric Badges */}
-        <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono">
-          <div className="px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/90 text-center shadow-xs">
+        {/* 4 Metric Badges - Frameless Tonal Wells */}
+        <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
+          <div className="px-4 py-2 rounded-2xl bg-[#F7F8FA] text-center">
             <div className="text-[10px] text-slate-400 uppercase font-sans font-semibold">Clip Norm (C)</div>
-            <div className="text-sm font-bold text-slate-800">{config.max_grad_norm.toFixed(1)}</div>
+            <div className="text-sm font-bold text-black mt-0.5">{config.max_grad_norm.toFixed(1)}</div>
           </div>
-          <div className="px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/90 text-center shadow-xs">
+          <div className="px-4 py-2 rounded-2xl bg-[#F7F8FA] text-center">
             <div className="text-[10px] text-slate-400 uppercase font-sans font-semibold">Noise Mult (σ)</div>
-            <div className="text-sm font-bold text-slate-800">{config.noise_multiplier.toFixed(1)}</div>
+            <div className="text-sm font-bold text-black mt-0.5">{config.noise_multiplier.toFixed(1)}</div>
           </div>
-          <div className="px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/90 text-center shadow-xs">
+          <div className="px-4 py-2 rounded-2xl bg-[#F7F8FA] text-center">
             <div className="text-[10px] text-slate-400 uppercase font-sans font-semibold">Target Delta (δ)</div>
-            <div className="text-sm font-bold text-purple-700">{config.delta.toFixed(5)}</div>
+            <div className="text-sm font-bold text-black mt-0.5">{config.delta.toFixed(5)}</div>
           </div>
-          <div className="px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/90 text-center shadow-xs">
-            <div className="text-[10px] text-slate-400 uppercase font-sans font-semibold">Headline Epsilon (ε)</div>
-            <div className="text-sm font-bold text-emerald-700">{finalEpsilon.toFixed(2)}</div>
+          <div className="px-4 py-2 rounded-2xl bg-[#D4FF00] text-center">
+            <div className="text-[10px] text-black/70 uppercase font-sans font-bold">Headline Epsilon</div>
+            <div className="text-sm font-black text-black mt-0.5">ε = {finalEpsilon.toFixed(2)}</div>
           </div>
         </div>
       </div>
@@ -94,14 +88,14 @@ export const DefendTab: React.FC<DefendTabProps> = ({
       />
 
       {/* Dual Charts: DP Accuracy & Cumulative Epsilon Accumulation */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
         {/* DP Test Accuracy */}
-        <div className="clay-card p-5">
-          <div className="flex items-center justify-between mb-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+        <div className="space-y-3">
+          <div className="flex items-center justify-between mb-1">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-black">
               Global Test Accuracy (%) under DP-SGD
             </h4>
-            <span className="text-xs font-mono font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+            <span className="text-xs font-mono font-bold text-black bg-[#D4FF00] px-3 py-1 rounded-full">
               Final: {chartData[chartData.length - 1]?.testAcc}%
             </span>
           </div>
@@ -126,9 +120,9 @@ export const DefendTab: React.FC<DefendTabProps> = ({
                   type="monotone"
                   dataKey="testAcc"
                   name="DP Test Acc (%)"
-                  stroke="#059669"
+                  stroke="#10B981"
                   strokeWidth={2.2}
-                  dot={{ r: 2.5, fill: "#059669" }}
+                  dot={{ r: 2.5, fill: "#10B981" }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -136,12 +130,12 @@ export const DefendTab: React.FC<DefendTabProps> = ({
         </div>
 
         {/* Privacy Budget Epsilon Accumulation */}
-        <div className="clay-card p-5">
-          <div className="flex items-center justify-between mb-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+        <div className="space-y-3">
+          <div className="flex items-center justify-between mb-1">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-black">
               Cumulative Privacy Loss ε over Rounds
             </h4>
-            <span className="text-xs font-mono font-semibold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
+            <span className="text-xs font-mono font-semibold text-slate-700 bg-slate-100 px-3 py-1 rounded-full">
               Rényi DP Composition
             </span>
           </div>
@@ -166,9 +160,9 @@ export const DefendTab: React.FC<DefendTabProps> = ({
                   type="monotone"
                   dataKey="epsilon"
                   name="Accumulated ε (Delta = 1/600)"
-                  stroke="#7C3AED"
+                  stroke="#000000"
                   strokeWidth={2.2}
-                  dot={{ r: 2.5, fill: "#7C3AED" }}
+                  dot={{ r: 2.5, fill: "#000000" }}
                 />
               </LineChart>
             </ResponsiveContainer>

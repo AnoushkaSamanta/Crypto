@@ -32,14 +32,14 @@ export const ConvergenceChart: React.FC<ConvergenceChartProps> = ({
   }));
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 w-full">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
       {/* Accuracy Chart */}
-      <div className="clay-card p-5">
-        <div className="flex items-center justify-between mb-3">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+      <div className="space-y-3">
+        <div className="flex items-center justify-between mb-1">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-black">
             Global Test Accuracy (%) over Rounds
           </h4>
-          <span className="text-xs font-mono font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
+          <span className="text-xs font-mono font-bold text-black bg-[#D4FF00] px-3 py-1 rounded-full">
             Current: {data[data.length - 1]?.testAcc}%
           </span>
         </div>
@@ -64,9 +64,9 @@ export const ConvergenceChart: React.FC<ConvergenceChartProps> = ({
                 type="monotone"
                 dataKey="testAcc"
                 name="Test Accuracy (%)"
-                stroke="#2563EB"
-                strokeWidth={2.2}
-                dot={{ r: 2.5, fill: "#2563EB" }}
+                stroke="#000000"
+                strokeWidth={2.4}
+                dot={{ r: 2.5, fill: "#000000" }}
                 activeDot={{ r: 5 }}
               />
             </LineChart>
@@ -75,12 +75,12 @@ export const ConvergenceChart: React.FC<ConvergenceChartProps> = ({
       </div>
 
       {/* Train Loss vs Test Loss (Generalization Gap) */}
-      <div className="clay-card p-5">
-        <div className="flex items-center justify-between mb-3">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+      <div className="space-y-3">
+        <div className="flex items-center justify-between mb-1">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-black">
             Generalization Gap (Train vs Test Loss)
           </h4>
-          <span className="text-xs font-mono font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+          <span className="text-xs font-mono font-semibold text-slate-800 bg-slate-100 px-3 py-1 rounded-full">
             MIA Vulnerability
           </span>
         </div>

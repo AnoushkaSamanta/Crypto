@@ -25,7 +25,7 @@ export const AttackTab: React.FC<AttackTabProps> = ({
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* Narrative Callout */}
-      <div className="tab-narrative !border-rose-500 !bg-rose-50/60 !text-slate-700">
+      <div className="tab-narrative">
         &ldquo;The attacker never sees the training set; it only uses how the model behaves on a candidate.&rdquo;
       </div>
 

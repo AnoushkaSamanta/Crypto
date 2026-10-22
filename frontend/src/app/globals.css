@@ -2,15 +2,13 @@
 @import "@xyflow/react/dist/style.css";
 
 :root {
-  --background: #F8F9FC;
-  --foreground: #1E232F;
+  --background: #FFFFFF;
+  --foreground: #11141A;
   --card-bg: #FFFFFF;
-  --card-border: rgba(226, 232, 240, 0.85);
-  --accent-primary: #2563EB;
-  --accent-emerald: #059669;
-  --accent-rose: #E11D48;
-  --accent-purple: #7C3AED;
-  --accent-amber: #D97706;
+  --accent-neon: #D4FF00;
+  --accent-neon-hover: #C5ED00;
+  --accent-neon-text: #000000;
+  --accent-dark: #11141A;
 }
 
 body {
@@ -18,150 +16,117 @@ body {
   color: var(--foreground);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   overflow-x: hidden;
-  background-image: 
-    radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.03) 0%, transparent 40%),
-    radial-gradient(circle at 90% 90%, rgba(124, 58, 237, 0.03) 0%, transparent 40%);
-  background-attachment: fixed;
 }
 
-/* Premium White Claymorphism Cards */
+/* Frameless Clean Architecture (No Bounded Card Frames or Drop Shadows) */
 .clay-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(226, 232, 240, 0.85);
-  border-radius: 16px;
-  box-shadow: 
-    0 10px 25px -4px rgba(112, 128, 175, 0.06),
-    0 4px 10px -2px rgba(112, 128, 175, 0.03),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 1);
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
 }
 
 .clay-card:hover {
-  border-color: rgba(203, 213, 225, 0.95);
-  box-shadow: 
-    0 14px 30px -4px rgba(112, 128, 175, 0.09),
-    0 6px 14px -2px rgba(112, 128, 175, 0.04),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 1);
+  box-shadow: none;
 }
 
-/* Raised Prominent Surface */
+/* Raised Prominent Surface - Frameless */
 .clay-card-raised {
-  background: #FFFFFF;
-  border: 1px solid rgba(218, 225, 233, 0.9);
-  border-radius: 18px;
-  box-shadow: 
-    0 16px 36px -6px rgba(112, 128, 175, 0.08),
-    0 6px 16px -3px rgba(112, 128, 175, 0.04),
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 1);
+  background: transparent;
+  box-shadow: none;
 }
 
-/* Soft Recessed Clay Inset (inputs, tracks, recessed stats) */
+/* Soft Inset Well for Controls & Canvases */
 .clay-inset {
-  background: #F1F4F9;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 
-    inset 0 2px 4px 0 rgba(148, 163, 184, 0.12),
-    inset 0 1px 2px 0 rgba(148, 163, 184, 0.08);
+  background: #F5F6F8;
+  border-radius: 20px;
 }
 
-/* Tactile Clay Buttons */
-.clay-btn {
+/* Tactile Neon Fluorescent Pill Buttons (Black Text) */
+.btn-neon {
+  background-color: var(--accent-neon);
+  color: #000000;
+  font-weight: 700;
+  border-radius: 9999px;
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px -1px rgba(212, 255, 0, 0.4);
 }
 
-.clay-btn:active {
+.btn-neon:hover {
+  background-color: var(--accent-neon-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -1px rgba(212, 255, 0, 0.5);
+}
+
+.btn-neon:active {
   transform: scale(0.98);
 }
 
-.clay-btn-primary {
-  background: linear-gradient(180deg, #3B82F6 0%, #2563EB 100%);
-  color: #FFFFFF;
-  border: 1px solid #1D4ED8;
-  box-shadow: 
-    0 4px 12px 0 rgba(37, 99, 235, 0.22),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
+/* Neutral Pill Button */
+.btn-neutral {
+  background-color: #F1F3F6;
+  color: #11141A;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.clay-btn-primary:hover {
-  background: linear-gradient(180deg, #2563EB 0%, #1D4ED8 100%);
-  box-shadow: 
-    0 6px 16px 0 rgba(37, 99, 235, 0.28),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+.btn-neutral:hover {
+  background-color: #E6E9EE;
 }
 
-.clay-btn-secondary {
-  background: #FFFFFF;
-  color: #1E232F;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 
-    0 2px 6px 0 rgba(112, 128, 175, 0.07),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 1);
+.btn-neutral:active {
+  transform: scale(0.98);
 }
 
-.clay-btn-secondary:hover {
-  background: #F8FAFC;
-  border-color: rgba(203, 213, 225, 0.95);
-  box-shadow: 
-    0 4px 10px 0 rgba(112, 128, 175, 0.1),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 1);
-}
-
-/* Tab Narrative Callout */
+/* Frameless Clean Narrative Quote */
 .tab-narrative {
-  background: #F0F4FF;
-  border-left: 3px solid #2563EB;
-  border-radius: 0 12px 12px 0;
-  padding: 12px 20px;
-  color: #334155;
+  background: #F7F8FA;
+  border-left: 4px solid var(--accent-neon);
+  border-radius: 0 16px 16px 0;
+  padding: 14px 22px;
+  color: #2D3748;
   font-style: italic;
   font-size: 0.95rem;
-  box-shadow: 0 2px 8px -2px rgba(37, 99, 235, 0.06);
 }
 
-/* React Flow Light Theme Canvas Overrides */
+/* React Flow Clean Canvas */
 .react-flow__renderer {
-  background: #F8FAFC !important;
-  border-radius: 14px;
+  background: #F8F9FA !important;
+  border-radius: 20px;
 }
 
 .react-flow__controls {
-  box-shadow: 0 6px 16px -2px rgba(112, 128, 175, 0.12) !important;
-  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06) !important;
+  border: none !important;
   background: #FFFFFF !important;
-  border-radius: 10px !important;
+  border-radius: 9999px !important;
   overflow: hidden;
 }
 
 .react-flow__controls-button {
   background: #FFFFFF !important;
-  border-bottom: 1px solid #F1F5F9 !important;
+  border-bottom: 1px solid #F1F3F6 !important;
   fill: #64748B !important;
 }
 
 .react-flow__controls-button:hover {
-  background: #F1F5F9 !important;
-  fill: #2563EB !important;
+  background: #F1F3F6 !important;
+  fill: #000000 !important;
 }
 
-.react-flow__minimap {
-  background: #FFFFFF !important;
-  border: 1px solid #E2E8F0 !important;
-  border-radius: 10px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
-}
-
-/* Custom Clean Scrollbars */
+/* Custom Minimal Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #F1F4F9;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
+  background: #D1D5DB;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #9CA3AF;
 }
