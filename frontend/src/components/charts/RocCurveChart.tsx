@@ -28,18 +28,15 @@ export const RocCurveChart: React.FC<RocCurveChartProps> = ({
   dpAuc,
   showOverlay = false,
 }) => {
-  // Downsample ROC points to ~50 points for smooth SVG rendering
   const data = useMemo(() => {
     const points: { fpr: number; baselineTpr: number; dpTpr?: number; randomGuess: number }[] = [];
     const bFpr = baselineRoc.fpr;
     const bTpr = baselineRoc.tpr;
 
-    // Linear steps from 0 to 1
     const steps = 60;
     for (let i = 0; i <= steps; i++) {
       const targetFpr = i / steps;
 
-      // Find closest baseline index
       let bIdx = 0;
       for (let j = 0; j < bFpr.length; j++) {
         if (bFpr[j] <= targetFpr) bIdx = j;
@@ -69,54 +66,56 @@ export const RocCurveChart: React.FC<RocCurveChartProps> = ({
   }, [baselineRoc, dpRoc]);
 
   return (
-    <div className="glass-panel p-5 rounded-2xl w-full">
+    <div className="clay-card p-5 w-full">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
         <div>
-          <h4 className="text-sm font-semibold text-slate-200">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
             {showOverlay
               ? "Overlaid ROC Curves: Baseline vs DP-SGD Protected"
               : "Receiver Operating Characteristic (ROC) Curve"}
           </h4>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             {showOverlay
-              ? "Differential privacy flattens the curve down toward the random guess diagonal (0.50 AUC)."
+              ? "DP-SGD flattens the curve down toward the 0.50 random guess diagonal."
               : "Attacker True Positive Rate vs False Positive Rate across all thresholds."}
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="px-2.5 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 font-mono text-xs">
+          <span className="px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 font-mono text-xs font-semibold">
             Baseline AUC: {baselineAuc.toFixed(3)}
           </span>
           {showOverlay && dpAuc !== undefined && (
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs">
+            <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-semibold">
               DP-SGD AUC: {dpAuc.toFixed(3)}
             </span>
           )}
         </div>
       </div>
 
-      <div className="h-[280px] w-full">
+      <div className="h-[270px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 10, right: 15, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.35} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
             <XAxis
               dataKey="fpr"
-              stroke="#64748b"
+              stroke="#64748B"
               tick={{ fontSize: 11 }}
-              label={{ value: "False Positive Rate (FPR)", position: "insideBottom", offset: -5, fill: "#64748b", fontSize: 11 }}
+              label={{ value: "False Positive Rate (FPR)", position: "insideBottom", offset: -5, fill: "#64748B", fontSize: 11 }}
             />
             <YAxis
-              stroke="#64748b"
+              stroke="#64748B"
               tick={{ fontSize: 11 }}
               domain={[0, 1]}
-              label={{ value: "True Positive Rate (TPR)", angle: -90, position: "insideLeft", offset: 25, fill: "#64748b", fontSize: 11 }}
+              label={{ value: "True Positive Rate (TPR)", angle: -90, position: "insideLeft", offset: 25, fill: "#64748B", fontSize: 11 }}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "#0f172a",
-                borderColor: "#334155",
+                backgroundColor: "#FFFFFF",
+                borderColor: "#E2E8F0",
                 borderRadius: "10px",
                 fontSize: "12px",
+                color: "#1E232F",
+                boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
               }}
             />
             <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: "12px" }} />
@@ -125,8 +124,8 @@ export const RocCurveChart: React.FC<RocCurveChartProps> = ({
               type="monotone"
               dataKey="baselineTpr"
               name={`Baseline Model (AUC = ${baselineAuc.toFixed(3)})`}
-              stroke="#f43f5e"
-              strokeWidth={2.5}
+              stroke="#E11D48"
+              strokeWidth={2.2}
               dot={false}
             />
 
@@ -135,8 +134,8 @@ export const RocCurveChart: React.FC<RocCurveChartProps> = ({
                 type="monotone"
                 dataKey="dpTpr"
                 name={`DP-SGD Model (AUC = ${dpAuc.toFixed(3)})`}
-                stroke="#10b981"
-                strokeWidth={2.5}
+                stroke="#059669"
+                strokeWidth={2.2}
                 dot={false}
               />
             )}
@@ -145,7 +144,7 @@ export const RocCurveChart: React.FC<RocCurveChartProps> = ({
               type="monotone"
               dataKey="randomGuess"
               name="Random Guess / Ideal (AUC = 0.50)"
-              stroke="#64748b"
+              stroke="#94A3B8"
               strokeWidth={1.5}
               strokeDasharray="4 4"
               dot={false}

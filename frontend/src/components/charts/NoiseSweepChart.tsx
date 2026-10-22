@@ -27,49 +27,49 @@ export const NoiseSweepChart: React.FC<NoiseSweepChartProps> = ({ sweepData }) =
   }));
 
   return (
-    <div className="glass-panel p-5 rounded-2xl w-full">
+    <div className="clay-card p-5 w-full">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
         <div>
-          <h4 className="text-sm font-semibold text-slate-200">
-            Privacy-Utility Pareto Tradeoff (Noise Sweep)
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+            Privacy-Utility Pareto Tradeoff (Noise Multiplier Sweep)
           </h4>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Increasing noise multiplier (σ) lowers attack AUC (higher privacy) while modestly reducing test accuracy.
+          <p className="text-xs text-slate-500 mt-0.5">
+            Increasing noise (σ) drops attack AUC (increasing privacy) with a controlled accuracy trade-off.
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs font-mono text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded-full border border-purple-500/20">
+        <div className="flex items-center gap-2 text-xs font-mono font-semibold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
           Evaluated across σ ∈ [0.5, 1.0, 2.0]
         </div>
       </div>
 
-      <div className="h-[260px] w-full">
+      <div className="h-[250px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 15, right: 20, left: -10, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.35} />
-            <XAxis dataKey="sigma" stroke="#64748b" tick={{ fontSize: 11 }} />
-            {/* Primary Y-axis for Test Acc (%) */}
+            <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+            <XAxis dataKey="sigma" stroke="#64748B" tick={{ fontSize: 11 }} />
             <YAxis
               yAxisId="left"
-              stroke="#3b82f6"
+              stroke="#2563EB"
               tick={{ fontSize: 11 }}
               domain={[50, 90]}
-              label={{ value: "Accuracy (%)", angle: -90, position: "insideLeft", offset: 15, fill: "#3b82f6", fontSize: 11 }}
+              label={{ value: "Accuracy (%)", angle: -90, position: "insideLeft", offset: 15, fill: "#2563EB", fontSize: 11 }}
             />
-            {/* Secondary Y-axis for Attack AUC */}
             <YAxis
               yAxisId="right"
               orientation="right"
-              stroke="#f59e0b"
+              stroke="#D97706"
               tick={{ fontSize: 11 }}
               domain={[0.45, 0.75]}
-              label={{ value: "Attack AUC", angle: 90, position: "insideRight", offset: 15, fill: "#f59e0b", fontSize: 11 }}
+              label={{ value: "Attack AUC", angle: 90, position: "insideRight", offset: 15, fill: "#D97706", fontSize: 11 }}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "#0f172a",
-                borderColor: "#334155",
+                backgroundColor: "#FFFFFF",
+                borderColor: "#E2E8F0",
                 borderRadius: "10px",
                 fontSize: "12px",
+                color: "#1E232F",
+                boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
               }}
             />
             <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: "12px" }} />
@@ -78,18 +78,18 @@ export const NoiseSweepChart: React.FC<NoiseSweepChartProps> = ({ sweepData }) =
               type="monotone"
               dataKey="testAcc"
               name="Global Test Acc (%)"
-              stroke="#3b82f6"
-              strokeWidth={2.5}
-              dot={{ r: 4, fill: "#3b82f6" }}
+              stroke="#2563EB"
+              strokeWidth={2.2}
+              dot={{ r: 3.5, fill: "#2563EB" }}
             />
             <Line
               yAxisId="right"
               type="monotone"
               dataKey="attackAuc"
               name="Attack ROC-AUC"
-              stroke="#f59e0b"
-              strokeWidth={2.5}
-              dot={{ r: 4, fill: "#f59e0b" }}
+              stroke="#D97706"
+              strokeWidth={2.2}
+              dot={{ r: 3.5, fill: "#D97706" }}
             />
           </LineChart>
         </ResponsiveContainer>

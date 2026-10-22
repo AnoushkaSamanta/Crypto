@@ -15,7 +15,7 @@ import {
   TargetModelNode,
   DecisionGateNode,
 } from "./nodes/CustomNodes";
-import { Target, ShieldWarning, ArrowRight } from "@phosphor-icons/react";
+import { Target } from "@phosphor-icons/react";
 
 const nodeTypes = {
   candidateNode: CandidateNode,
@@ -43,51 +43,51 @@ export const AttackFlow: React.FC<AttackFlowProps> = ({
       {
         id: "node-candidate",
         type: "candidateNode",
-        position: { x: 0, y: 80 },
+        position: { x: 0, y: 75 },
         data: { label: candidateLabel },
       },
       {
         id: "node-model",
         type: "targetModelNode",
-        position: { x: 260, y: 70 },
+        position: { x: 250, y: 65 },
         data: { isProtected: false },
       },
       {
         id: "node-gate",
         type: "decisionGateNode",
-        position: { x: 550, y: 70 },
+        position: { x: 540, y: 65 },
         data: { threshold },
       },
       {
         id: "node-member",
-        position: { x: 820, y: 20 },
+        position: { x: 800, y: 20 },
         data: { label: "MEMBER (Training Set)" },
         style: {
-          background: isMemberGuess ? "rgba(16, 185, 129, 0.25)" : "rgba(30, 41, 59, 0.5)",
-          borderColor: isMemberGuess ? "#10b981" : "#475569",
-          borderWidth: 2,
-          color: isMemberGuess ? "#6ee7b7" : "#94a3b8",
+          background: isMemberGuess ? "#ECFDF5" : "#FFFFFF",
+          borderColor: isMemberGuess ? "#10B981" : "#E2E8F0",
+          borderWidth: 1.5,
+          color: isMemberGuess ? "#065F46" : "#64748B",
           borderRadius: "12px",
           padding: "10px 16px",
           fontWeight: 700,
           fontSize: "12px",
-          boxShadow: isMemberGuess ? "0 0 15px rgba(16, 185, 129, 0.3)" : "none",
+          boxShadow: isMemberGuess ? "0 4px 12px rgba(16, 185, 129, 0.15)" : "0 1px 3px rgba(0,0,0,0.04)",
         },
       },
       {
         id: "node-nonmember",
-        position: { x: 820, y: 125 },
+        position: { x: 800, y: 120 },
         data: { label: "NON-MEMBER (Unseen)" },
         style: {
-          background: !isMemberGuess ? "rgba(244, 63, 94, 0.25)" : "rgba(30, 41, 59, 0.5)",
-          borderColor: !isMemberGuess ? "#f43f5e" : "#475569",
-          borderWidth: 2,
-          color: !isMemberGuess ? "#fda4af" : "#94a3b8",
+          background: !isMemberGuess ? "#FFF1F2" : "#FFFFFF",
+          borderColor: !isMemberGuess ? "#F43F5E" : "#E2E8F0",
+          borderWidth: 1.5,
+          color: !isMemberGuess ? "#9F1239" : "#64748B",
           borderRadius: "12px",
           padding: "10px 16px",
           fontWeight: 700,
           fontSize: "12px",
-          boxShadow: !isMemberGuess ? "0 0 15px rgba(244, 63, 94, 0.3)" : "none",
+          boxShadow: !isMemberGuess ? "0 4px 12px rgba(244, 63, 94, 0.15)" : "0 1px 3px rgba(0,0,0,0.04)",
         },
       },
     ];
@@ -100,8 +100,8 @@ export const AttackFlow: React.FC<AttackFlowProps> = ({
         source: "node-candidate",
         target: "node-model",
         animated: true,
-        style: { stroke: "#a855f7", strokeWidth: 2 },
-        markerEnd: { type: MarkerType.ArrowClosed, color: "#a855f7" },
+        style: { stroke: "#7C3AED", strokeWidth: 2 },
+        markerEnd: { type: MarkerType.ArrowClosed, color: "#7C3AED" },
       },
       {
         id: "e-model-gate",
@@ -109,12 +109,12 @@ export const AttackFlow: React.FC<AttackFlowProps> = ({
         target: "node-gate",
         animated: true,
         label: `Loss ➔ Score (${score.toFixed(3)})`,
-        labelStyle: { fill: "#cbd5e1", fontSize: 10, fontFamily: "monospace" },
-        labelBgStyle: { fill: "#0f172a", fillOpacity: 0.9 },
+        labelStyle: { fill: "#1E232F", fontSize: 10, fontFamily: "monospace", fontWeight: 600 },
+        labelBgStyle: { fill: "#FFFFFF", fillOpacity: 0.95, stroke: "#E2E8F0", strokeWidth: 1 },
         labelBgPadding: [6, 3] as [number, number],
-        labelBgBorderRadius: 4,
-        style: { stroke: "#f59e0b", strokeWidth: 2 },
-        markerEnd: { type: MarkerType.ArrowClosed, color: "#f59e0b" },
+        labelBgBorderRadius: 6,
+        style: { stroke: "#D97706", strokeWidth: 2 },
+        markerEnd: { type: MarkerType.ArrowClosed, color: "#D97706" },
       },
       {
         id: "e-gate-member",
@@ -123,13 +123,13 @@ export const AttackFlow: React.FC<AttackFlowProps> = ({
         target: "node-member",
         animated: isMemberGuess,
         style: {
-          stroke: isMemberGuess ? "#10b981" : "#475569",
-          strokeWidth: isMemberGuess ? 3 : 1.5,
-          opacity: isMemberGuess ? 1 : 0.4,
+          stroke: isMemberGuess ? "#059669" : "#CBD5E1",
+          strokeWidth: isMemberGuess ? 2.5 : 1.5,
+          opacity: isMemberGuess ? 1 : 0.6,
         },
         markerEnd: {
           type: MarkerType.ArrowClosed,
-          color: isMemberGuess ? "#10b981" : "#475569",
+          color: isMemberGuess ? "#059669" : "#CBD5E1",
         },
       },
       {
@@ -139,35 +139,35 @@ export const AttackFlow: React.FC<AttackFlowProps> = ({
         target: "node-nonmember",
         animated: !isMemberGuess,
         style: {
-          stroke: !isMemberGuess ? "#f43f5e" : "#475569",
-          strokeWidth: !isMemberGuess ? 3 : 1.5,
-          opacity: !isMemberGuess ? 1 : 0.4,
+          stroke: !isMemberGuess ? "#E11D48" : "#CBD5E1",
+          strokeWidth: !isMemberGuess ? 2.5 : 1.5,
+          opacity: !isMemberGuess ? 1 : 0.6,
         },
         markerEnd: {
           type: MarkerType.ArrowClosed,
-          color: !isMemberGuess ? "#f43f5e" : "#475569",
+          color: !isMemberGuess ? "#E11D48" : "#CBD5E1",
         },
       },
     ];
   }, [score, isMemberGuess]);
 
   return (
-    <div className="relative w-full rounded-2xl border border-slate-800/80 bg-slate-950/70 overflow-hidden shadow-2xl">
-      <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 border-b border-slate-800/60 bg-slate-900/60 backdrop-blur-md">
+    <div className="relative w-full clay-card overflow-hidden">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 border-b border-slate-200/80 bg-white">
         <div className="flex items-center gap-2">
-          <Target size={18} weight="bold" className="text-purple-400" />
-          <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <Target size={18} weight="bold" className="text-purple-600" />
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
             Black-Box Loss-Threshold Attack Pipeline (Yeom et al.)
           </h4>
         </div>
-        <div className="flex items-center gap-2 text-xs text-slate-400">
-          <span className="px-2.5 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-[11px] font-mono">
-            Boundary: Black-Box Model Access Only
+        <div className="flex items-center gap-2 text-xs">
+          <span className="px-2.5 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-[11px] font-mono font-semibold">
+            Boundary: Black-Box Query Access Only
           </span>
         </div>
       </div>
 
-      <div className="h-[280px] w-full">
+      <div className="h-[270px] w-full">
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -176,25 +176,25 @@ export const AttackFlow: React.FC<AttackFlowProps> = ({
           fitViewOptions={{ padding: 0.2 }}
           minZoom={0.5}
           maxZoom={1.5}
-          className="bg-slate-950"
+          className="bg-[#F8FAFC]"
         >
-          <Background variant={BackgroundVariant.Dots} gap={16} size={1} color="#334155" />
+          <Background variant={BackgroundVariant.Dots} gap={16} size={1} color="#CBD5E1" />
           <Controls showInteractive={false} className="!left-4 !bottom-4 !top-auto" />
         </ReactFlow>
       </div>
 
-      <div className="px-5 py-2.5 border-t border-slate-800/80 bg-slate-900/80 flex items-center justify-between text-xs text-slate-400">
+      <div className="px-5 py-2.5 border-t border-slate-200/80 bg-slate-50/70 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600">
         <div className="flex items-center gap-2 font-mono">
-          <span>Current Rule:</span>
-          <span className="text-slate-200">Predict Member if Score = -Loss ≥ τ</span>
+          <span className="text-slate-500 font-sans">Decision Rule:</span>
+          <span className="text-slate-800 font-semibold">Predict Member if Score = -Loss ≥ τ</span>
         </div>
-        <div className="flex items-center gap-1.5 text-slate-300 font-mono">
-          <span>Active Prediction:</span>
+        <div className="flex items-center gap-1.5 font-mono">
+          <span className="text-slate-500 font-sans">Active Prediction:</span>
           <span
-            className={`font-bold px-2 py-0.5 rounded text-[11px] ${
+            className={`font-bold px-2.5 py-0.5 rounded-full text-[11px] ${
               isMemberGuess
-                ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
-                : "bg-rose-500/20 text-rose-300 border border-rose-500/40"
+                ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                : "bg-rose-50 text-rose-700 border border-rose-200"
             }`}
           >
             {guess}

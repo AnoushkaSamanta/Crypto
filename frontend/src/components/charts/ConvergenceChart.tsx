@@ -34,27 +34,29 @@ export const ConvergenceChart: React.FC<ConvergenceChartProps> = ({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 w-full">
       {/* Accuracy Chart */}
-      <div className="glass-panel p-5 rounded-2xl">
+      <div className="clay-card p-5">
         <div className="flex items-center justify-between mb-3">
-          <h4 className="text-sm font-semibold text-slate-200">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
             Global Test Accuracy (%) over Rounds
           </h4>
-          <span className="text-xs font-mono text-blue-400 bg-blue-500/10 px-2.5 py-0.5 rounded-full border border-blue-500/20">
+          <span className="text-xs font-mono font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
             Current: {data[data.length - 1]?.testAcc}%
           </span>
         </div>
-        <div className="h-[260px] w-full">
+        <div className="h-[250px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.4} />
-              <XAxis dataKey="round" stroke="#64748b" tick={{ fontSize: 11 }} />
-              <YAxis stroke="#64748b" tick={{ fontSize: 11 }} domain={[40, 95]} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+              <XAxis dataKey="round" stroke="#64748B" tick={{ fontSize: 11 }} />
+              <YAxis stroke="#64748B" tick={{ fontSize: 11 }} domain={[40, 95]} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "#0f172a",
-                  borderColor: "#334155",
+                  backgroundColor: "#FFFFFF",
+                  borderColor: "#E2E8F0",
                   borderRadius: "10px",
                   fontSize: "12px",
+                  color: "#1E232F",
+                  boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
                 }}
               />
               <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: "12px" }} />
@@ -62,9 +64,9 @@ export const ConvergenceChart: React.FC<ConvergenceChartProps> = ({
                 type="monotone"
                 dataKey="testAcc"
                 name="Test Accuracy (%)"
-                stroke="#3b82f6"
-                strokeWidth={2.5}
-                dot={{ r: 3, fill: "#3b82f6" }}
+                stroke="#2563EB"
+                strokeWidth={2.2}
+                dot={{ r: 2.5, fill: "#2563EB" }}
                 activeDot={{ r: 5 }}
               />
             </LineChart>
@@ -73,27 +75,29 @@ export const ConvergenceChart: React.FC<ConvergenceChartProps> = ({
       </div>
 
       {/* Train Loss vs Test Loss (Generalization Gap) */}
-      <div className="glass-panel p-5 rounded-2xl">
+      <div className="clay-card p-5">
         <div className="flex items-center justify-between mb-3">
-          <h4 className="text-sm font-semibold text-slate-200">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
             Generalization Gap (Train vs Test Loss)
           </h4>
-          <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
-            Gap Exploited by MIA
+          <span className="text-xs font-mono font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+            MIA Vulnerability
           </span>
         </div>
-        <div className="h-[260px] w-full">
+        <div className="h-[250px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.4} />
-              <XAxis dataKey="round" stroke="#64748b" tick={{ fontSize: 11 }} />
-              <YAxis stroke="#64748b" tick={{ fontSize: 11 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+              <XAxis dataKey="round" stroke="#64748B" tick={{ fontSize: 11 }} />
+              <YAxis stroke="#64748B" tick={{ fontSize: 11 }} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "#0f172a",
-                  borderColor: "#334155",
+                  backgroundColor: "#FFFFFF",
+                  borderColor: "#E2E8F0",
                   borderRadius: "10px",
                   fontSize: "12px",
+                  color: "#1E232F",
+                  boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
                 }}
               />
               <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: "12px" }} />
@@ -101,18 +105,18 @@ export const ConvergenceChart: React.FC<ConvergenceChartProps> = ({
                 type="monotone"
                 dataKey="trainLoss"
                 name="Train Loss (Members)"
-                stroke="#10b981"
-                strokeWidth={2.5}
-                dot={{ r: 3, fill: "#10b981" }}
+                stroke="#059669"
+                strokeWidth={2.2}
+                dot={{ r: 2.5, fill: "#059669" }}
               />
               <Line
                 type="monotone"
                 dataKey="testLoss"
                 name="Test Loss (General)"
-                stroke="#f43f5e"
-                strokeWidth={2.5}
+                stroke="#E11D48"
+                strokeWidth={2.2}
                 strokeDasharray="4 4"
-                dot={{ r: 3, fill: "#f43f5e" }}
+                dot={{ r: 2.5, fill: "#E11D48" }}
               />
             </LineChart>
           </ResponsiveContainer>

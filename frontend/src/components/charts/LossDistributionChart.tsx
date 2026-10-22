@@ -51,72 +51,74 @@ export const LossDistributionChart: React.FC<LossDistributionChartProps> = ({
   }, [memberLosses, nonmemberLosses]);
 
   return (
-    <div className="glass-panel p-5 rounded-2xl w-full">
+    <div className="clay-card p-5 w-full">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
         <div>
-          <h4 className="text-sm font-semibold text-slate-200">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
             Loss Distribution Separation (Members vs Non-members)
           </h4>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Members cluster at lower loss (left); Non-members spread toward higher loss (right).
+          <p className="text-xs text-slate-500 mt-0.5">
+            Members cluster at low loss (left); Non-members spread toward high loss (right).
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-xs">
+          <span className="px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200 text-amber-800 font-mono text-xs font-semibold">
             Decision Threshold: Loss = {lossThreshold} (Score τ = {threshold.toFixed(3)})
           </span>
         </div>
       </div>
 
-      <div className="h-[280px] w-full">
+      <div className="h-[270px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={chartData} margin={{ top: 15, right: 15, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.35} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
             <XAxis
               dataKey="loss"
-              stroke="#64748b"
+              stroke="#64748B"
               tick={{ fontSize: 11 }}
-              unit=""
-              label={{ value: "Cross-Entropy Loss", position: "insideBottom", offset: -5, fill: "#64748b", fontSize: 11 }}
+              label={{ value: "Cross-Entropy Loss", position: "insideBottom", offset: -5, fill: "#64748B", fontSize: 11 }}
             />
-            <YAxis stroke="#64748b" tick={{ fontSize: 11 }} />
+            <YAxis stroke="#64748B" tick={{ fontSize: 11 }} />
             <Tooltip
               contentStyle={{
-                backgroundColor: "#0f172a",
-                borderColor: "#334155",
+                backgroundColor: "#FFFFFF",
+                borderColor: "#E2E8F0",
                 borderRadius: "10px",
                 fontSize: "12px",
+                color: "#1E232F",
+                boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
               }}
             />
             <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: "12px" }} />
             <ReferenceLine
               x={lossThreshold}
-              stroke="#f59e0b"
-              strokeWidth={2.5}
+              stroke="#D97706"
+              strokeWidth={2}
               strokeDasharray="4 4"
               label={{
-                value: `Decision Cutoff τ`,
+                value: `Cutoff τ`,
                 position: "insideTopRight",
-                fill: "#f59e0b",
+                fill: "#B45309",
                 fontSize: 11,
+                fontWeight: 600,
               }}
             />
             <Area
               type="monotone"
               dataKey="members"
               name="Members (Training Data)"
-              stroke="#10b981"
-              fill="#10b981"
-              fillOpacity={0.3}
+              stroke="#059669"
+              fill="#059669"
+              fillOpacity={0.2}
               strokeWidth={2}
             />
             <Area
               type="monotone"
               dataKey="nonmembers"
               name="Non-members (Unseen)"
-              stroke="#f43f5e"
-              fill="#f43f5e"
-              fillOpacity={0.3}
+              stroke="#E11D48"
+              fill="#E11D48"
+              fillOpacity={0.2}
               strokeWidth={2}
             />
           </AreaChart>

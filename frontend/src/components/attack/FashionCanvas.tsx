@@ -22,7 +22,6 @@ export const FashionCanvas: React.FC<FashionCanvasProps> = ({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Create offscreen 28x28 imageData
     const imgData = ctx.createImageData(28, 28);
     const data = imgData.data;
 
@@ -32,7 +31,7 @@ export const FashionCanvas: React.FC<FashionCanvasProps> = ({
         const pixelVal = Math.floor(Math.max(0, Math.min(1, val)) * 255);
         const idx = (r * 28 + c) * 4;
 
-        // Grayscale pixel
+        // Grayscale pixel (white background/black garment or standard inverted)
         data[idx] = pixelVal;     // R
         data[idx + 1] = pixelVal; // G
         data[idx + 2] = pixelVal; // B
@@ -40,7 +39,6 @@ export const FashionCanvas: React.FC<FashionCanvasProps> = ({
       }
     }
 
-    // Draw offscreen and render scaled on main canvas with crisp nearest-neighbor interpolation
     const offscreen = document.createElement("canvas");
     offscreen.width = 28;
     offscreen.height = 28;
@@ -56,8 +54,8 @@ export const FashionCanvas: React.FC<FashionCanvasProps> = ({
 
   return (
     <div
-      className={`relative inline-flex items-center justify-center p-1 rounded-xl bg-slate-900/90 border border-slate-700/60 shadow-lg ${className}`}
-      style={{ width: size + 10, height: size + 10 }}
+      className={`relative inline-flex items-center justify-center p-2 rounded-2xl bg-[#0F172A] border border-slate-300 shadow-sm ${className}`}
+      style={{ width: size + 16, height: size + 16 }}
     >
       <canvas
         ref={canvasRef}

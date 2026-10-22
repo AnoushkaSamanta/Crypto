@@ -4,13 +4,7 @@ import React from "react";
 import { AggMetrics, RocCurve, NoiseSweepItem } from "@/types";
 import { RocCurveChart } from "../charts/RocCurveChart";
 import { NoiseSweepChart } from "../charts/NoiseSweepChart";
-import {
-  Scales,
-  ShieldCheck,
-  WarningCircle,
-  CheckCircle,
-  Info,
-} from "@phosphor-icons/react";
+import { Scales, WarningCircle } from "@phosphor-icons/react";
 
 interface CompareTabProps {
   baselineAgg: AggMetrics;
@@ -79,45 +73,45 @@ export const CompareTab: React.FC<CompareTabProps> = ({
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* Narrative Callout */}
-      <div className="tab-narrative border-amber-500">
+      <div className="tab-narrative !border-amber-500 !bg-amber-50/60 !text-slate-700">
         &ldquo;By modifying client gradient updates with clipping and Gaussian noise,
         DP-SGD substantially reduces membership leakage at an acceptable utility cost.&rdquo;
       </div>
 
       {/* Side-by-Side Performance Comparison Table */}
-      <div className="glass-panel p-6 rounded-2xl">
+      <div className="clay-card p-6">
         <div className="flex items-center gap-2 mb-4">
-          <Scales size={20} weight="duotone" className="text-amber-400" />
-          <h4 className="text-sm font-bold text-slate-100">
+          <Scales size={20} weight="duotone" className="text-amber-600" />
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
             Multi-Seed Empirical Benchmark Matrix (3 Seeds, 30 Communication Rounds)
           </h4>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-xl border border-slate-200">
           <table className="w-full text-xs text-left">
-            <thead className="bg-slate-900/80 text-slate-400 font-mono uppercase text-[10px] border-b border-slate-800">
+            <thead className="bg-slate-50 text-slate-600 font-mono uppercase text-[10px] border-b border-slate-200">
               <tr>
-                <th className="py-3 px-4">Evaluation Metric</th>
-                <th className="py-3 px-4 text-rose-300">Baseline (No DP)</th>
-                <th className="py-3 px-4 text-emerald-300">DP-SGD Protected</th>
-                <th className="py-3 px-4 text-slate-300">Privacy & Utility Impact</th>
+                <th className="py-3 px-4 font-sans font-bold">Evaluation Metric</th>
+                <th className="py-3 px-4 text-rose-700 font-bold">Baseline (No DP)</th>
+                <th className="py-3 px-4 text-emerald-700 font-bold">DP-SGD Protected</th>
+                <th className="py-3 px-4 text-slate-600 font-sans font-bold">Privacy & Utility Impact</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 font-mono">
+            <tbody className="divide-y divide-slate-100 font-mono">
               {metrics.map((row, idx) => (
                 <tr
                   key={idx}
-                  className={`hover:bg-slate-800/30 transition-colors ${
-                    row.highlight ? "bg-slate-900/20" : ""
+                  className={`hover:bg-slate-50/70 transition-colors ${
+                    row.highlight ? "bg-slate-50/30" : ""
                   }`}
                 >
-                  <td className="py-3 px-4 font-sans font-semibold text-slate-200">
+                  <td className="py-3 px-4 font-sans font-semibold text-slate-800">
                     {row.name}
                   </td>
-                  <td className="py-3 px-4 text-rose-400 font-bold">{row.baseline}</td>
-                  <td className="py-3 px-4 text-emerald-400 font-bold">{row.dp}</td>
-                  <td className="py-3 px-4 text-slate-300 font-sans text-[11px]">
-                    <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">
+                  <td className="py-3 px-4 text-rose-700 font-bold">{row.baseline}</td>
+                  <td className="py-3 px-4 text-emerald-700 font-bold">{row.dp}</td>
+                  <td className="py-3 px-4 text-slate-600 font-sans text-[11px]">
+                    <span className="px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 font-medium">
                       {row.impact}
                     </span>
                   </td>
@@ -143,26 +137,26 @@ export const CompareTab: React.FC<CompareTabProps> = ({
       )}
 
       {/* Honest Limitations & Nuances Box */}
-      <div className="p-6 rounded-2xl bg-amber-950/20 border border-amber-500/40 shadow-xl space-y-3">
-        <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
-          <WarningCircle size={22} weight="duotone" />
+      <div className="p-6 rounded-2xl bg-amber-50/70 border border-amber-200/90 shadow-xs space-y-3">
+        <div className="flex items-center gap-2 text-amber-900 font-bold text-xs uppercase tracking-wider">
+          <WarningCircle size={20} weight="duotone" className="text-amber-600" />
           <span>Honest Limitations & Privacy Engineering Nuances</span>
         </div>
-        <div className="space-y-2 text-xs text-slate-300 leading-relaxed">
+        <div className="space-y-2 text-xs text-slate-700 leading-relaxed">
           <p>
-            <strong className="text-amber-300">1. DP mitigates, but does not eradicate all leakage:</strong> At smaller noise multipliers (e.g. σ ≤ 0.5), residual membership signal remains detectable by empirical attacks.
+            <strong className="text-slate-900">1. DP mitigates, but does not eradicate all leakage:</strong> At smaller noise multipliers (e.g. σ ≤ 0.5), residual membership signal remains detectable by empirical attacks.
           </p>
           <p>
-            <strong className="text-amber-300">2. Scope of Differential Privacy:</strong> The reported ε represents record-level Differential Privacy with respect to each client&apos;s local dataset (δ = 1/600), composed across all FL communication rounds using Opacus&apos; Rényi DP accountant.
+            <strong className="text-slate-900">2. Scope of Differential Privacy:</strong> The reported ε represents record-level Differential Privacy with respect to each client&apos;s local dataset (δ = 1/600), composed across all FL communication rounds using Opacus&apos; Rényi DP accountant.
           </p>
           <p>
-            <strong className="text-amber-300">3. Attacker Threat Model:</strong> This evaluation assumes a black-box attacker who queries the released global model with loss queries. Stronger white-box attackers with access to intermediate client updates could theoretically extract additional signal.
+            <strong className="text-slate-900">3. Attacker Threat Model:</strong> This evaluation assumes a black-box attacker who queries the released global model with loss queries. Stronger white-box attackers with access to intermediate client updates could theoretically extract additional signal.
           </p>
           <p>
-            <strong className="text-amber-300">4. Secure Aggregation vs DP:</strong> Secure Aggregation (SecAgg) protects model updates <em>in transit</em> from clients to the server, but offers ZERO protection for the released final model! Only Differential Privacy modifies the training mechanics to prevent the model from memorizing individual records.
+            <strong className="text-slate-900">4. Secure Aggregation vs DP:</strong> Secure Aggregation (SecAgg) protects model updates <em>in transit</em> from clients to the server, but offers ZERO protection for the released final model! Only Differential Privacy modifies the training mechanics to prevent the model from memorizing individual records.
           </p>
           <p>
-            <strong className="text-amber-300">5. Scale of Experiment:</strong> This benchmark is designed for fast, reproducible laptop execution in &lt; 10 minutes on CPU using Fashion-MNIST. Production cross-device federated deployments involve thousands of non-IID clients and larger networks.
+            <strong className="text-slate-900">5. Scale of Experiment:</strong> This benchmark is designed for fast, reproducible laptop execution in &lt; 10 minutes on CPU using Fashion-MNIST. Production cross-device federated deployments involve thousands of non-IID clients and larger networks.
           </p>
         </div>
       </div>
