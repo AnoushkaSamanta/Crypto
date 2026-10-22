@@ -1,6 +1,8 @@
-# FL-MIA-Demo: Federated Learning Membership Inference Attack & DP Defense
+# FL-MIA-Demo: Federated Learning Membership Inference Attack & DP Defense Engine
 
-A clean, reproducible, and interactive benchmark demonstrating **Membership Inference Attacks (MIA)** on **Federated Learning (FedAvg)**, and defending against them using **Differential Privacy (DP-SGD via Opacus)**, complete with a modern **Streamlit** demonstration interface.
+A clean, reproducible benchmark engine demonstrating **Membership Inference Attacks (MIA)** on **Federated Learning (FedAvg)**, and defending against them using **Differential Privacy (DP-SGD via Opacus)**.
+
+Results and trained checkpoints feed directly into the **Next.js 16 interactive laboratory** in `../frontend`.
 
 Designed to execute completely on standard laptop CPUs in **under ~10 minutes** for full multi-seed experiments (and ~1-2 minutes in quick mode).
 
@@ -21,7 +23,7 @@ Designed to execute completely on standard laptop CPUs in **under ~10 minutes** 
 - **Deep Learning**: PyTorch (`torch`, `torchvision`)
 - **Differential Privacy**: [Opacus](https://opacus.ai/) (`PrivacyEngine`, Rényi Differential Privacy accountant)
 - **Analytics & Metrics**: NumPy, SciPy, Scikit-Learn, Pandas
-- **Interactive UI & Visualizations**: Streamlit, Plotly
+- **Frontend Dashboard**: Next.js 16 (located in `../frontend`)
 
 ---
 
@@ -29,15 +31,14 @@ Designed to execute completely on standard laptop CPUs in **under ~10 minutes** 
 
 ```text
 fl-mia-demo/
-  ├── requirements.txt      # Pinned standard dependencies
-  ├── README.md             # Project documentation, presentation script, and guide
+  ├── requirements.txt      # Pinned PyTorch, Opacus, and data science dependencies
+  ├── README.md             # Pipeline documentation and methodology guide
   ├── config.py             # Master hyperparameter configuration dataclass
   ├── data.py               # Fashion-MNIST downloader, split hygiene, and assertions
   ├── model.py              # SmallCNN (GroupNorm, Opacus ModuleValidator compliant)
   ├── fl.py                 # Manual FedAvg simulation (Baseline and DP-SGD)
   ├── attack.py             # Black-box loss-threshold MIA & metrics (Yeom et al.)
   ├── experiment.py         # Multi-seed experiment pipeline & noise sweep CLI
-  ├── app.py                # 4-tab interactive Streamlit demonstration UI
   └── results/              # Saved model checkpoints, JSON metrics, and candidates
 ```
 
@@ -45,7 +46,7 @@ fl-mia-demo/
 
 ## ⚡ Installation & Quick Start
 
-### 1. Clone & Setup Environment
+### 1. Setup Python Environment
 
 ```bash
 cd fl-mia-demo
@@ -76,13 +77,17 @@ Outputs are automatically saved to `results/`:
 - `dp_model_seed0.pt`: DP-SGD protected federated model weights.
 - `eval_candidates_seed0.json`: 2,000 pre-cached evaluation samples for interactive probing.
 
-### 3. Launch the Interactive Streamlit UI
+### 3. Launch the Interactive Next.js Dashboard
+
+The interactive user interface is built with Next.js 16:
 
 ```bash
-streamlit run app.py
+cd ../frontend
+npm install
+npm run dev
 ```
 
-Open `http://localhost:8501` in your browser.
+Open `http://localhost:3000` in your browser.
 
 ---
 

@@ -138,13 +138,13 @@ def run_experiment_pipeline(cfg: FLMIAConfig) -> Dict[str, Any]:
         }
         seed_results.append(record)
 
-        # Cache seed 0 models and interactive candidate records for Streamlit UI
+        # Cache seed 0 models and interactive candidate records for Interactive Web UI
         if seed == 0:
             seed0_models["baseline"] = base_model.state_dict()
             seed0_models["dp"] = dp_model.state_dict()
 
             # Pre-extract evaluation samples so UI can render them instantly
-            print("        Caching seed 0 evaluation records for Streamlit UI...", flush=True)
+            print("        Caching seed 0 evaluation records for Interactive Web UI...", flush=True)
             for idx in range(len(splits.attack_eval)):
                 img, label, is_member, orig_idx = splits.attack_eval[idx]
                 seed0_eval_samples.append(

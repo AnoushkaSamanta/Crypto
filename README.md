@@ -220,7 +220,6 @@ Crptography-project/
 │   ├── fl.py                      # Manual FedAvg simulation (Baseline and DP-SGD engines)
 │   ├── attack.py                  # Yeom loss-threshold MIA engine & metric calculations
 │   ├── experiment.py              # Multi-seed experiment execution & CLI sweep runner
-│   ├── app.py                     # Standalone Python Streamlit demonstration UI
 │   ├── requirements.txt           # Pinned PyTorch, Opacus, and analytics dependencies
 │   └── results/                   # Serialized checkpoints, evaluation JSONs & summaries
 │
@@ -253,7 +252,7 @@ Crptography-project/
 
 ## ⚡ Quickstart & Reproducibility
 
-### Option A: Next.js Interactive Web Dashboard (Recommended)
+### 1. Next.js Interactive Web Dashboard (Frontend)
 
 Requires Node.js 18+:
 
@@ -272,7 +271,7 @@ Open [http://localhost:3000](http://localhost:3000) to access the interactive la
 
 ---
 
-### Option B: PyTorch & Opacus Experiment Suite
+### 2. PyTorch & Opacus Experiment Engine (Backend)
 
 Requires Python 3.10+:
 
@@ -306,19 +305,6 @@ Generated outputs in `fl-mia-demo/results/`:
 
 ---
 
-### Option C: Python Streamlit Application
-
-If running purely in a Python environment without Node.js:
-
-```bash
-cd fl-mia-demo
-source venv/bin/activate
-streamlit run app.py
-```
-
-Open [http://localhost:8501](http://localhost:8501) in your browser.
-
----
 
 ## 🎭 Academic Presentation Script
 
