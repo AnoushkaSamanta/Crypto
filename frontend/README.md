@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FL-MIA Interactive Web Laboratory (Next.js 16)
 
-## Getting Started
+The interactive web interface for **Federated Learning Membership Inference Attacks & DP-SGD Defense**, built with Next.js 16, React 19, `@xyflow/react` (React Flow), Recharts, and Tailwind CSS.
 
-First, run the development server:
+Features a borderless, frameless white design with fluorescent neon accents (`#D4FF00`) and high-contrast typography.
+
+---
+
+## 🚀 Quick Start
+
+Ensure you have Node.js 18+ installed:
 
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To verify a production build:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧩 Architectural Components
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Interactive Topology Diagrams (`src/components/diagrams/`)
+- **`FedAvgFlow.tsx`**: Dynamic 3-stage lifecycle simulator (Downlink Broadcast $\theta_t$, Offline Local SGD $E=2$, Uplink Aggregation $\sum \frac{n_k}{N} w_k$) with single-channel highlighted telemetry and an interactive client quick-selector.
+- **`AttackFlow.tsx`**: Black-box inference pipeline ($x \mapsto f_\theta(x) \mapsto -\mathcal{L}_{CE} \mapsto \text{Gate}(\tau)$) with live baseline vs. defended toggling.
+- **`DpSgdFlow.tsx`**: 4-stage mathematical inspector of per-sample gradient clipping, Gaussian noise perturbation, and RDP accounting.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Research Tabs (`src/components/tabs/`)
+- **`TrainTab.tsx`**: Scrubber for 30 communication rounds, real-time KPI metrics, and dual convergence chart (Test accuracy + Train vs Test generalization loss gap).
+- **`AttackTab.tsx`**: Live Candidate Prober testing 2,000 real Fashion-MNIST evaluation samples, empirical loss distributions, and ROC curves.
+- **`DefendTab.tsx`**: Side-by-side Candidate Comparator testing the exact same candidate under Baseline vs. DP-SGD, plus dynamic clipping $C$ and noise $\sigma$ sliders with live $(\epsilon, \delta)$ readout.
+- **`CompareTab.tsx`**: Privacy-Utility Pareto frontier, noise sweep curves ($\sigma \in [0.0, 2.0]$), and multi-seed statistical summary table.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework**: Next.js 16 (Turbopack, App Router)
+- **UI Library**: React 19
+- **Diagrams / Node Workflows**: `@xyflow/react` (React Flow)
+- **Data Visualizations**: Recharts
+- **Iconography**: `@phosphor-icons/react`
+- **Styling**: Tailwind CSS v4 + Vanilla CSS Design Tokens
+
+For the full theoretical foundation, mathematical formulas, and Python deep learning pipeline, see the master [Project README](../README.md).
